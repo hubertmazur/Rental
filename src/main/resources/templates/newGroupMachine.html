@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nowa grupa maszyn</title>
+</head>
+<body>
+<h1>Dodawanie nowej grupy maszyn</h1>
+
+<form action=""  th:object="${newGroupMachine}" th:method="post">
+    <p>Nazwa grupy: <input type="text" th:field="*{name}"/></p>
+    <p>Kod grupy: <input type="text" th:field="*{groupCode}"/></p>
+    <p>Waga maszyny: <input type="number" th:field="*{weight}"/></p>
+    <p>Cena za dobę: <input type="number" th:field="*{costPerDay}"/></p>
+    <p><input type="submit" value="Dodaj" /> <input type="reset" value="Reset" /></p>
+</form>
+
+</body>
+</html>

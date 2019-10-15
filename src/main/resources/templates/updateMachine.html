@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Zmiana parametrów maszyny</title>
+</head>
+<body>
+<h1>Zmiana parametrów maszyny</h1>
+
+<form action=""  th:object="${machineToUpdate}" th:method="put">
+    <p>Producent: <input type="text" th:field="*{manufacturer}"/></p>
+    <p>Nr seryjny:: <input type="text" th:field="*{serialNumber}"/></p>
+    <p>Rok produkcji: <input type="number" th:field="*{yearOfProduction}"/></p>
+    <p><input type="submit" value="Zmień" /> <input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html>

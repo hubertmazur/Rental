@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Zmiana nazwy</title>
+</head>
+<body>
+<h1>Zmiana nazwy kategorii</h1>
+
+<form action="#" th:action="@{'/updateCategory/' + ${updateCategory.idCategory}}" th:object="${updateCategory}"  th:method="put">
+    <p>Nazwa nowej kategori: <input type="text" th:field="*{name}" /></p>
+    <p><input type="submit" value="Zmień" /> <input type="reset" value="Reset" /></p>
+</form>
+
+</body>
+</html>

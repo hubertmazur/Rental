@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${machine.name}">Nazwa sprzętu</title>
+</head>
+<body>
+<header><h1 th:text="${machine.name}"></h1></header>
+<table>
+    <tr>
+        <td>Cena</td>
+        <td th:text="${machine.costPerDay}"></td>
+        <td>zł netto / doba</td>
+    </tr>
+    <tr>
+        <td>Waga</td>
+        <td th:text="${machine.weight}"></td>
+        <td>kg</td>
+    </tr>
+    <tr>
+        <td>ZAREZERWUJ</td>
+    </tr>
+    <tr>
+        <td><a th:href="@{'/availability/group/' + ${machine.idGroup}}">SPRAWDZ DOSTĘPNOŚĆ</a></td>
+    </tr>
+    <tr>
+        <td><a th:href="@{'/listMachines/group/' + ${machine.idGroup}}">Lista maszyn tej grupy</a></td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${machineGroup.name}">Grupa maszyn</title>
+</head>
+<body>
+<h1 th:text="${machineGroup.name}">Grupy maszyn </h1>
+<p>Lista maszyn danej grupy: </p>
+<table>
+    <tr th:each="machine : ${listMachine}">
+        <td th:text="${machine.manufacturer}"></td>
+        <td th:text="${machine.serialNumber}"></td>
+        <td th:text="${machine.yearOfProduction}"></td>
+        <td th:text="${machine.isRent}"></td>
+        <td th:text="${machine.startRentDate}"></td>
+        <td th:text="${machine.endRentDate}"></td>
+        <form th:action="@{'/updateMachine/' + ${machine.idMachine}}">
+            <td><input type="submit" value="Zmień parametry maszyny"/></td>
+        </form>
+        <form th:action="@{'/deleteMachine/' + ${machine.idMachine}}" th:method="delete">
+            <td><input type="submit" value="Usuń"/></td>
+        </form>
+    </tr>
+</table>
+
+<form th:action="@{'/addNewMachine/groupMachine/' + ${machineGroup.idGroup}}" th:method="get">
+    <td><input type="submit" value="Dodaj maszynę do tej grupy"/></td>
+</form>
+</body>
+</html>

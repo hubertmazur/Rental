@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj nową maszynę</title>
+</head>
+<body>
+<h1>Dodawanie nowej maszyny do grupy:</h1>
+<p1 th:text="${machineGroup.name}">Nazwa grupy</p1>
+
+
+<form action="#" th:object="${newMachine}" th:method="post">
+    <p>Producent: <input type="text" th:field="*{manufacturer}"/></p>
+    <p>Numer seryjny: <input type="text" th:field="*{serialNumber}"/></p>
+    <p>Rok produkcji: <input type="number" th:field="*{yearOfProduction}"/></p>
+    <p><input type="submit" value="Dodaj"/> <input type="reset" value="Reset"/></p>
+</form>
+
+</body>
+</html>

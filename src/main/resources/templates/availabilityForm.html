@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title >Sprawdzanie dostępności</title>
+</head>
+<body>
+<h1>Sprawdzanie dostępności sprzętu</h1>
+<p th:text="${machine.name}"></p>
+<form action="#" th:action="@{'/availability/group/' + ${machine.idGroup}}" th:object="${availability}"  th:method="post">
+    <p>Data rozpoczęcia wynajmu: <input type="date" th:field="*{start}"/></p>
+    <p>Dta zakończenie wynjmu: <input type="date" th:field="*{end}" /></p>
+    <p><input type="submit" value="Sprawdz" /> <input type="reset" value="Reset" /></p>
+</form>
+
+
+</body>
+</html>

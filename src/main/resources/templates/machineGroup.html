@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${category.name}">Kategorie</title>
+</head>
+<body>
+<h1 th:text="${category.name}">Grupy maszyn </h1>
+<p>Kliknij aby sprawdzić parametry sprzętu, dostępność lub dokonać rezerwacji.</p>
+<table>
+    <tr th:each="group : ${groupList}">
+        <td><a th:href="@{'/group/' + ${group.idGroup}}" th:text="${group.name}"></a></td>
+        <form th:action="@{'/updateGroupMachine/' + ${group.idGroup}}" >
+            <td><input type="submit" value="Zmień parametry grupy" /></td>
+        </form>
+        <form th:action="@{'/deleteGroup/' + ${group.idGroup}}"  th:method="delete">
+            <td><input type="submit" value="Usuń" /></td>
+        </form>
+    </tr>
+</table>
+
+<form th:action="@{'/addNewGroupMachine/category/' + ${category.idCategory}}" th:method="get">
+    <td><input type="submit" value="Dodaj grupę maszyn" /></td>
+</form>
+</body>
+</html>
