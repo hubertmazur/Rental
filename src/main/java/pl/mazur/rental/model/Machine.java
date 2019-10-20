@@ -30,7 +30,7 @@ public class Machine {
     @Max(2019)
     private Integer yearOfProduction;
     @Column(columnDefinition = "boolean default false")
-    private Boolean  isRent;
+    private Boolean isRent;
     private Date startRentDate;
     private Date endRentDate;
 

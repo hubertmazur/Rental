@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import pl.mazur.rental.model.Machine;
 import pl.mazur.rental.service.MachineService;
 
-
 @Controller
 public class MachineController {
 

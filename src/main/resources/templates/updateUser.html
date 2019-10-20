@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Zmiana danych użytkownika</title>
+</head>
+<body>
+<h1>Zmiana danych użytkownika</h1>
+
+<form action="#" th:action="@{'/updateUser/' + ${userToUpdate.idUser}}" th:object="${userToUpdate}" th:method="put">
+    <input type="hidden" name="userId"
+           th:field="*{idUser}" th:value="${userToUpdate.idUser}"/>
+    <p>Imie: <input type="text" th:field="*{firstName}"/></p>
+    <p>Nazwisko: <input type="text" th:field="*{lastName}"/></p>
+    <p>Email: <input type="email" th:field="*{email}"/></p>
+    <p>Telefon: <input type="text" th:field="*{telephone}"/></p>
+    <p>PESEL: <input type="number" th:field="*{pesel}"/></p>
+    <p>Płeć: <input type="text" th:field="*{sex}"/></p>
+    <p>Data urodzenia:<input type="date" th:field="*{dateOfBirth}"/></p>
+    <p>Adres:<input type="text" th:field="*{address}"/></p>
+    <p><input type="submit" value="Zmień"/> <input type="reset" value="Reset"/></p>
+</form>
+
+</body>
+</html>

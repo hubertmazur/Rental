@@ -34,6 +34,7 @@ public class MachineServiceImpl implements MachineService {
 
     @Override
     public void save(Machine machine) {
+        machine.setIsRent(false);
         machineRepository.save(machine);
     }
 

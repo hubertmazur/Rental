@@ -1,44 +1,25 @@
 package pl.mazur.rental.service;
 
-import org.springframework.stereotype.Service;
+import pl.mazur.rental.model.Availability;
 import pl.mazur.rental.model.Category;
 import pl.mazur.rental.model.MachineGroup;
-import pl.mazur.rental.repostiory.CategoryRepository;
-import pl.mazur.rental.repostiory.MachineGroupRepository;
+
 import java.util.List;
 
-@Service
-public class MachineGroupService {
+public interface MachineGroupService {
+    MachineGroup findById(Long id);
 
-    private CategoryRepository categoryRepository;
-    private MachineGroupRepository machineGroupRepository;
+    List<MachineGroup> findAll();
 
-    public MachineGroupService(CategoryRepository categoryRepository, MachineGroupRepository machineGroupRepository) {
-        this.categoryRepository = categoryRepository;
-        this.machineGroupRepository = machineGroupRepository;
-    }
+    void save(MachineGroup machineGroup);
 
-    public Long findIdCategoryByIdGroup(Long idGroup) {
-        return machineGroupRepository.getOne(idGroup).getCategory().getIdCategory();
-    }
+    void deleteById(Long id);
 
-    public Category findCategoryByIfCategory(Long idCategory) {
-        return categoryRepository.findById(idCategory).get();
-    }
+    Long findIdCategoryByIdGroup(Long idGroup);
 
-    public void save(MachineGroup machineGroup) {
-        machineGroupRepository.save(machineGroup);
-    }
+    Category findCategoryByIdCategory(Long idCategory);
 
-    public void deleteById(Long idGroup) {
-        machineGroupRepository.deleteById(idGroup);
-    }
+    List<MachineGroup> findByCategory_IdCategory(Long idCategory);
 
-    public List<MachineGroup> findByCategory_IdCategory(Long idCategory) {
-        return machineGroupRepository.findByCategory_IdCategory(idCategory);
-    }
-
-    public MachineGroup findByIdGroup(Long idGroup) {
-        return machineGroupRepository.findById(idGroup).get();
-    }
+    String checkAvailability(Availability availability, Long idGroup);
 }

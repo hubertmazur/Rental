@@ -20,21 +20,27 @@ public class MachineGroupController {
     @GetMapping("category/{idCategory}")
     public String getMachineGroup(Model model, @PathVariable Long idCategory) {
         model.addAttribute("groupList", machineGroupService.findByCategory_IdCategory(idCategory));
-        model.addAttribute("category", machineGroupService.findCategoryByIfCategory(idCategory));
+        model.addAttribute("category", machineGroupService.findCategoryByIdCategory(idCategory));
         return "machineGroup";
 
     }
 
     @GetMapping("group/{idGroup}")
     public String getMachines(Model model, @PathVariable Long idGroup) {
-        model.addAttribute("machine", machineGroupService.findByIdGroup(idGroup));
+        model.addAttribute("machine", machineGroupService.findById(idGroup));
         return "machineGroupInfo";
     }
 
     @GetMapping("availability/group/{idGroup}")
     public String checkAvailability(@PathVariable Long idGroup, Model model) {
-        model.addAttribute("machine", machineGroupService.findByIdGroup(idGroup));
+        model.addAttribute("machine", machineGroupService.findById(idGroup));
         model.addAttribute("availability", new Availability());
+        return "availabilityForm";
+    }
+
+    @PostMapping("availability/group/{idGroup}")
+    public String availability(@PathVariable Long idGroup, Model model, Availability availability) {
+        model.addAttribute("response", machineGroupService.checkAvailability(availability, idGroup));
         return "availabilityForm";
     }
 
@@ -47,21 +53,21 @@ public class MachineGroupController {
 
     @PostMapping("addNewGroupMachine/category/{idCategory}")
     public String newGroupMachine(MachineGroup machineGroup, @PathVariable Long idCategory) {
-        machineGroup.setCategory(machineGroupService.findCategoryByIfCategory(idCategory));
+        machineGroup.setCategory(machineGroupService.findCategoryByIdCategory(idCategory));
         machineGroupService.save(machineGroup);
         return "redirect:/category/" + idCategory;
     }
 
     @GetMapping("updateGroupMachine/{idGroup}")
     public String updateGroupMachine(@PathVariable Long idGroup, Model model) {
-        model.addAttribute("updateGroupMachine", machineGroupService.findByIdGroup(idGroup));
+        model.addAttribute("updateGroupMachine", machineGroupService.findById(idGroup));
         return "updateGroupMachine";
     }
 
     @PutMapping("updateGroupMachine/{idGroup}")
     public String updateGroup(MachineGroup machineGroup, @PathVariable Long idGroup) {
         Long id = machineGroupService.findIdCategoryByIdGroup(idGroup);
-        machineGroup.setCategory(machineGroupService.findCategoryByIfCategory(id));
+        machineGroup.setCategory(machineGroupService.findCategoryByIdCategory(id));
         machineGroupService.save(machineGroup);
         return "redirect:/category/" + id;
     }

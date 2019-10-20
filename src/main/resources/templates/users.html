@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Użytkownicy</title>
+</head>
+<body>
+<h1>Użytkownicy </h1>
+<table>
+    <tr th:each="user : ${usersList}">
+        <td><a th:href="@{'/users/' + ${user.idUser}}" th:text="${user.email}"></a></td>
+        <td th:text="${user.firstName}"></td>
+        <td th:text="${user.lastName}"></td>
+        <td th:text="${user.dateOfBirth}"></td>
+        <td th:text="${user.address}"></td>
+        <form action="#" th:action="@{'/updateUser/' + ${user.idUser}}">
+            <td><input type="submit" value="Zmień dane" /></td>
+        </form>
+        <form action="#" th:action="@{'/deleteUser/' + ${user.idUser}}"  th:method="delete">
+            <td><input type="submit" value="Usuń" /></td>
+        </form>
+    </tr>
+</table>
+<button onclick="window.location.href = 'http://localhost:8080/addNewUser';">Dodaj nowego użytkownika</button>
+</body>
+</html>
