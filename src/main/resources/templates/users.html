@@ -16,7 +16,7 @@
         <form action="#" th:action="@{'/updateUser/' + ${user.idUser}}">
             <td><input type="submit" value="Zmień dane" /></td>
         </form>
-        <form action="#" th:action="@{'/deleteUser/' + ${user.idUser}}"  th:method="delete">
+        <form action="#" th:action="@{'/delete/user/' + ${user.idUser}}"  th:method="delete">
             <td><input type="submit" value="Usuń" /></td>
         </form>
     </tr>

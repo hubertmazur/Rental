@@ -1,9 +1,7 @@
 package pl.mazur.rental.service;
 
 import org.springframework.stereotype.Service;
-import pl.mazur.rental.model.Availability;
 import pl.mazur.rental.model.Category;
-import pl.mazur.rental.model.Machine;
 import pl.mazur.rental.model.MachineGroup;
 import pl.mazur.rental.repostiory.CategoryRepository;
 import pl.mazur.rental.repostiory.MachineGroupRepository;
@@ -57,11 +55,6 @@ public class MachineGroupServiceImpl implements MachineGroupService {
     @Override
     public List<MachineGroup> findByCategory_IdCategory(Long idCategory) {
         return machineGroupRepository.findByCategory_IdCategory(idCategory);
-    }
-
-    @Override
-    public String checkAvailability(Availability availability, Long idGroup) {
-        return null;
     }
 
 }

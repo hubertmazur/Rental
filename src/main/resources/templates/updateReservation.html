@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Zmiana rezerwacji</title>
+</head>
+<body>
+<h1>Zmiana danych w rezerwacji</h1>
+<ul>
+    <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+</ul>
+
+<form action="#" th:action="@{'/update/reservation/' + ${reservationToUpdate.idReservation}}" th:object="${reservationToUpdate}" th:method="put">
+    <input type="hidden" name="reservationId"
+           th:field="*{idReservation}" th:value="${reservationToUpdate.idReservation}"/>
+    <input type="hidden" name="user"
+           th:field="*{user}" th:value="${reservationToUpdate.user}"/>
+    <input type="hidden" name="quantityBeforeUpdate"
+           th:field="*{quantity}" th:value="${reservationToUpdate.quantity}"/>
+    <p>Początek wynajmu: <input type="datetime-local" th:field="*{startRentDateTemp}"/></p>
+    <p>Koniec wynajmu: <input type="datetime-local" th:field="*{endRentDateTemp}"/></p>
+    <p>Ilość: <input type="number" name="quantityToUpdate" placeholder="Wprowadz ilość maszyn"/></p>
+    <p><input type="submit" value="Zmień"/> <input type="reset" value="Reset"/></p>
+</form>
+
+</body>
+</html>

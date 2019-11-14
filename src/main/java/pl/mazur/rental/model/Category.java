@@ -1,13 +1,11 @@
 package pl.mazur.rental.model;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
-@Data
+
 @Entity
 public class Category {
 
@@ -19,14 +17,38 @@ public class Category {
     @Column(name = "name", unique = true)
     private String name;
     @OneToMany(mappedBy = "category")
-    Set<MachineGroup> machineGroupList;
+    private Set<MachineGroup> machineGroupList;
+
+    public Long getIdCategory() {
+        return idCategory;
+    }
+
+    public void setIdCategory(Long idCategory) {
+        this.idCategory = idCategory;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<MachineGroup> getMachineGroupList() {
+        return machineGroupList;
+    }
+
+    public void setMachineGroupList(Set<MachineGroup> machineGroupList) {
+        this.machineGroupList = machineGroupList;
+    }
 
     @Override
     public String toString() {
         return "Category{" +
                 "idCategory=" + idCategory +
                 ", name='" + name + '\'' +
-                ", machineGroupList=" + machineGroupList.isEmpty() +
+                ", machineGroupList=" +
                 '}';
     }
 }

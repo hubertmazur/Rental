@@ -3,7 +3,6 @@ package pl.mazur.rental.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.mazur.rental.model.Availability;
 import pl.mazur.rental.model.MachineGroup;
 import pl.mazur.rental.service.MachineGroupService;
 
@@ -31,18 +30,6 @@ public class MachineGroupController {
         return "machineGroupInfo";
     }
 
-    @GetMapping("availability/group/{idGroup}")
-    public String checkAvailability(@PathVariable Long idGroup, Model model) {
-        model.addAttribute("machine", machineGroupService.findById(idGroup));
-        model.addAttribute("availability", new Availability());
-        return "availabilityForm";
-    }
-
-    @PostMapping("availability/group/{idGroup}")
-    public String availability(@PathVariable Long idGroup, Model model, Availability availability) {
-        model.addAttribute("response", machineGroupService.checkAvailability(availability, idGroup));
-        return "availabilityForm";
-    }
 
     @GetMapping("addNewGroupMachine/category/{idCategory}")
     public String addNewMachineGroup(Model model, @PathVariable Long idCategory) {

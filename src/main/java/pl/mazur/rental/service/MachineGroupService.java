@@ -1,6 +1,5 @@
 package pl.mazur.rental.service;
 
-import pl.mazur.rental.model.Availability;
 import pl.mazur.rental.model.Category;
 import pl.mazur.rental.model.MachineGroup;
 
@@ -21,5 +20,4 @@ public interface MachineGroupService {
 
     List<MachineGroup> findByCategory_IdCategory(Long idCategory);
 
-    String checkAvailability(Availability availability, Long idGroup);
 }

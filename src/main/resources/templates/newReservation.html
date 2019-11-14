@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nowa rezerwacja</title>
+</head>
+<body>
+<h1>Rezerwacja maszyny</h1>
+<h1 th:text="${name}"></h1>
+<ul>
+    <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
+</ul>
+
+<form action="" th:object="${reservation}" th:method="post">
+    <p>Początek wynajmu: <input type="datetime-local" th:field="*{startRentDateTemp}"/></p>
+    <p>Koniec wynajmu: <input type="datetime-local" th:field="*{endRentDateTemp}"/></p>
+    <p>Ilość: <input type="number" th:field="*{quantity}"/></p>
+    <p>Email: <input type="email" name="email" placeholder="Wprowadz adres mailowy"/></p>
+    <p><input type="submit" value="Dodaj"/> <input type="reset" value="Reset"/></p>
+</form>
+
+</body>
+</html>

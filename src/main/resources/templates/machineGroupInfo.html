@@ -18,10 +18,10 @@
         <td>kg</td>
     </tr>
     <tr>
-        <td>ZAREZERWUJ</td>
+        <td><a th:href="@{'/newReservation/' + ${machine.idGroup}}">ZAREZERWUJ</a></td>
     </tr>
     <tr>
-        <td><a th:href="@{'/availability/group/' + ${machine.idGroup}}">SPRAWDZ DOSTĘPNOŚĆ</a></td>
+        <td><a th:href="@{'/reservations/machineGroup/' + ${machine.idGroup}}">LISTA REZERWACJI</a></td>
     </tr>
     <tr>
         <td><a th:href="@{'/listMachines/group/' + ${machine.idGroup}}">Lista maszyn tej grupy</a></td>

@@ -12,7 +12,7 @@
         <td th:text="${machine.manufacturer}"></td>
         <td th:text="${machine.serialNumber}"></td>
         <td th:text="${machine.yearOfProduction}"></td>
-        <td th:text="${machine.isRent}"></td>
+        <td th:text="${machine.rent}"></td>
         <td th:text="${machine.startRentDate}"></td>
         <td th:text="${machine.endRentDate}"></td>
         <form th:action="@{'/updateMachine/' + ${machine.idMachine}}">
