@@ -16,9 +16,11 @@ public class MachineGroup {
     private Long idGroup;
     @NotNull
     @Length(max = 5)
+    @Column(name = "groupCode", unique = true)
     private String groupCode;
     @NotNull
     @NotBlank
+    @Column(name = "name", unique = true)
     private String name;
     @NotNull
     private Double weight;
@@ -115,7 +117,7 @@ public class MachineGroup {
                 ", costPerDay=" + costPerDay +
                 ", amountOfMachines=" + amountOfMachines +
                 ", machines=" +
-                ", category="  +
+                ", category=" +
                 ", reservations=" +
                 '}';
     }

@@ -18,7 +18,7 @@ public class Reservation {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
     @NotNull
-    @ManyToMany(fetch =FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "Reservation_MachineGroup",
             joinColumns = {@JoinColumn(name = "reservation_id")},

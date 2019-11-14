@@ -21,6 +21,7 @@ public class Machine {
     @JoinColumn(name = "machine_group_id", nullable = false)
     private MachineGroup machineGroup;
     @NotNull
+    @Column(name = "serialNumber", unique = true)
     private String serialNumber;
     @NotNull
     @Min(1990)

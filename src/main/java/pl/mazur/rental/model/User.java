@@ -29,6 +29,7 @@ public class User {
     private String telephone;
     @NotBlank
     @NotNull
+    @Column(name = "pesel", unique = true)
     private String pesel;
     @NotBlank
     @NotNull
