@@ -1,5 +1,6 @@
 package pl.mazur.rental.service;
 
+import pl.mazur.rental.model.Reservation;
 import pl.mazur.rental.model.User;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface UserService {
     User findById(Long id);
 
     User findByEmail(String email);
+
+    List<Reservation> findAllReservationByUserId(Long userId);
 }

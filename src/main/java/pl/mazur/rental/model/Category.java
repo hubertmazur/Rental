@@ -13,7 +13,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idCategory;
     @NotNull
-    @NotBlank
+    @NotBlank()
     @Column(name = "name", unique = true)
     private String name;
     @OneToMany(mappedBy = "category")

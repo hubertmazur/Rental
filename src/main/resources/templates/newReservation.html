@@ -12,8 +12,8 @@
 </ul>
 
 <form action="" th:object="${reservation}" th:method="post">
-    <p>Początek wynajmu: <input type="datetime-local" th:field="*{startRentDateTemp}"/></p>
-    <p>Koniec wynajmu: <input type="datetime-local" th:field="*{endRentDateTemp}"/></p>
+    <p>Początek wynajmu: <input type="date" th:field="*{startRentDateTemp}"/></p>
+    <p>Koniec wynajmu: <input type="date" th:field="*{endRentDateTemp}"/></p>
     <p>Ilość: <input type="number" th:field="*{quantity}"/></p>
     <p>Email: <input type="email" name="email" placeholder="Wprowadz adres mailowy"/></p>
     <p><input type="submit" value="Dodaj"/> <input type="reset" value="Reset"/></p>

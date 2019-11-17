@@ -51,9 +51,10 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @GetMapping("users/{userId}")
-    public String getUserReservation(@PathVariable Long userId) {
-        return "getUserReservation";
+    @GetMapping("reservations/user/{userId}")
+    public String getUserReservation(@PathVariable Long userId, Model model) {
+        model.addAttribute("reservationsByUser", userService.findAllReservationByUserId(userId));
+        return "reservations_user";
     }
 
 

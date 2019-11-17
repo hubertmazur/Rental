@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rezerwacje użytkownika</title>
+</head>
+<body>
+<table>
+    <tr th:each="reservation : ${reservationsByUser}">
+        <td th:text="${reservation.idReservation}"></td>
+        <td th:text="${reservation.machineGroupList   }"></td>
+        <td th:text="${reservation.startRentDate}"></td>
+        <td th:text="${reservation.endRentDate}"></td>
+        <td th:text="${reservation.quantity}"></td>
+    </tr>
+</table>
+</body>
+</html>
