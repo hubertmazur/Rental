@@ -10,7 +10,7 @@
     <li th:each="err : ${#fields.errors('*')}" th:text="${err}" />
 </ul>
 
-<form action="#" th:action="@{'/update/reservation/' + ${reservationToUpdate.idReservation}}" th:object="${reservationToUpdate}" th:method="put">
+<form action=""  th:object="${reservationToUpdate}" th:method="put">
     <input type="hidden" name="reservationId"
            th:field="*{idReservation}" th:value="${reservationToUpdate.idReservation}"/>
     <input type="hidden" name="user"

@@ -44,6 +44,7 @@ public class ReservationController {
     public String addNewReservation(Model model, @PathVariable Long idMachineGroup) {
         model.addAttribute("reservation", new Reservation());
         model.addAttribute("name", machineGroupService.findById(idMachineGroup).getName());
+        model.addAttribute("idMachineGroup", idMachineGroup);
         return "newReservation";
     }
 
@@ -62,19 +63,18 @@ public class ReservationController {
         reservation.setStartRentDate(util.parseDate(format, reservation.getStartRentDateTemp()));
         reservation.setEndRentDate(util.parseDate(format, reservation.getEndRentDateTemp()));
         reservationService.save(reservation);
-        return "redirect:/reservations/" + idMachineGroup;
+        return "redirect:/reservations/machineGroup/" + idMachineGroup;
     }
 
-    @GetMapping("update/reservation/{idReservation}")
-    public String updateReservationById(Model model, @PathVariable Long idReservation) {
+    @GetMapping("update/reservation/{idReservation}/{idMachineGroup}")
+    public String updateReservationById(Model model, @PathVariable Long idReservation, @PathVariable Long idMachineGroup) {
         model.addAttribute("reservationToUpdate", reservationService.findById(idReservation));
         return "updateReservation";
     }
 
-    @PutMapping("update/reservation/{idReservation}")
-    public String updateReservation(Model model, @PathVariable Long idReservation, @ModelAttribute Reservation reservation,
+    @PutMapping("update/reservation/{idReservation}/{idMachineGroup}")
+    public String updateReservation(Model model, @PathVariable Long idReservation, @PathVariable Long idMachineGroup, @ModelAttribute Reservation reservation,
                                     @ModelAttribute("quantityToUpdate") Integer quantityToUpdate, BindingResult bindingResult, Errors error) throws ParseException {
-        Long idMachineGroup = reservationService.findById(idReservation).getMachineGroupList().get(0).getIdGroup();
         reservationValidator.validateAvailabilityWhenUpdateReservation(quantityToUpdate, reservation, idMachineGroup, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("reservationToUpdate", reservation);

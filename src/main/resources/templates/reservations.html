@@ -14,7 +14,7 @@
         <td th:text="${reservation.user.lastName}"></td>
         <td th:text="${reservation.startRentDate}"></td>
         <td th:text="${reservation.endRentDate}"></td>
-        <form th:action="@{'/update/reservation/' + ${reservation.idReservation}}">
+        <form th:action="@{'/update/reservation/' + ${reservation.idReservation}+'/'+ ${idMachineGroup}}">
             <td><input type="submit" value="Zmień rezerwację"/></td>
         </form>
         <form th:action="@{'/delete/reservation/' + ${reservation.idReservation}}" th:method="delete">
