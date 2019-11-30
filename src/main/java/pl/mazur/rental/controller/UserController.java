@@ -53,8 +53,11 @@ public class UserController {
 
     @GetMapping("reservations/user/{userId}")
     public String getUserReservation(@PathVariable Long userId, Model model) {
-        model.addAttribute("reservationsByUser", userService.findAllReservationByUserId(userId));
+        model.addAttribute("reservations", userService.findAllReservationByUserId(userId));
+        model.addAttribute("userId", userId);
         return "reservations_user";
+
+
     }
 
 

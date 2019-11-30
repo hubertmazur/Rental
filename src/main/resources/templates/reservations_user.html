@@ -2,17 +2,50 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Rezerwacje użytkownika</title>
+    <title>Rezerwacje - lista</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
 <body>
-<table>
-    <tr th:each="reservation : ${reservationsByUser}">
-        <td th:text="${reservation.idReservation}"></td>
-        <td th:text="${reservation.machineGroupList   }"></td>
-        <td th:text="${reservation.startRentDate}"></td>
-        <td th:text="${reservation.endRentDate}"></td>
-        <td th:text="${reservation.quantity}"></td>
-    </tr>
-</table>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Rezerwacje użytkownika
+                <a th:href="@{'/createPdf/user/'+ ${userId}}" style="float: right"><img th:src="@{/images/pdf-icon.png}"
+                                                                                        style="width: 40px"></a>
+            </h2>
+            <div style="margin-top:20px">
+                <table id="reservation" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                    <tr>
+                        <th>Id rezerwacji</th>
+                        <th>Użytkownik - nazwisko</th>
+                        <th>Użytkownik - imie</th>
+                        <th>Maszyna</th>
+                        <th>Ilość</th>
+                        <th>Początek wynajmu</th>
+                        <th>Koniec wynajmu</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="reservation : ${reservations}">
+                        <td th:text="${reservation.idReservation}"></td>
+                        <td th:text="${reservation.user.lastName}"></td>
+                        <td th:text="${reservation.user.firstName}"></td>
+                        <td th:text="${reservation.machineGroupList}"></td>
+                        <td th:text="${reservation.quantity}"></td>
+                        <td th:text="${reservation.startRentDate}"></td>
+                        <td th:text="${reservation.endRentDate}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </body>
 </html>

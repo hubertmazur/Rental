@@ -4,7 +4,9 @@ import pl.mazur.rental.model.MachineGroup;
 import pl.mazur.rental.model.Reservation;
 import pl.mazur.rental.model.User;
 
-import java.util.Date;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface ReservationService {
@@ -26,5 +28,7 @@ public interface ReservationService {
 
 
     boolean checkAvailabilityWhenUpdateReservation(Integer quantityToUpdate, Reservation reservation, Long idGroup);
+
+    boolean createPdf(List<Reservation> reservationList, ServletContext servletContext, HttpServletRequest request, HttpServletResponse response);
 
 }
