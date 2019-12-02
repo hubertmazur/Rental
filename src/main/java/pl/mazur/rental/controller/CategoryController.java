@@ -2,18 +2,23 @@ package pl.mazur.rental.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.mazur.rental.model.Category;
 import pl.mazur.rental.service.CategoryService;
+import pl.mazur.rental.validator.CategoryValidator;
+
 
 @Controller
 public class CategoryController {
 
 
     private CategoryService categoryService;
+    private CategoryValidator categoryValidator;
 
-    public CategoryController(CategoryService categoryService) {
+    public CategoryController(CategoryService categoryService, CategoryValidator categoryValidator) {
         this.categoryService = categoryService;
+        this.categoryValidator = categoryValidator;
     }
 
     @GetMapping("/categoryList")
@@ -29,7 +34,11 @@ public class CategoryController {
     }
 
     @PostMapping("/addNewCategory")
-    public String addCategory(Model model, Category category) {
+    public String addCategory(Model model, Category category, BindingResult bindingResult) {
+        categoryValidator.validate(category, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "redirect:/addNewCategory";
+        }
         categoryService.save(category);
         return "redirect:/categoryList";
 
@@ -43,7 +52,11 @@ public class CategoryController {
     }
 
     @PutMapping("/updateCategory/{idCategory}")
-    public String updateNameCategory(@PathVariable Long idCategory, Category category) {
+    public String updateNameCategory(@PathVariable Long idCategory, Category category, BindingResult bindingResult) {
+        categoryValidator.validate(category, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "redirect:/updateCategory/" + idCategory;
+        }
         categoryService.save(category);
         return "redirect:/categoryList";
     }

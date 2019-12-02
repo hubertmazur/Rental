@@ -6,7 +6,7 @@ import pl.mazur.rental.repostiory.CategoryRepository;
 import java.util.List;
 
 @Service
-public class CategoryServiceImpl implements CategoryService{
+public class CategoryServiceImpl implements CategoryService {
 
     private CategoryRepository categoryRepository;
 
@@ -37,6 +37,11 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public void deleteById(Long id) {
         categoryRepository.deleteById(id);
+    }
+
+    @Override
+    public Category findByCategoryName(String name) {
+        return categoryRepository.findByName(name);
     }
 
 }
