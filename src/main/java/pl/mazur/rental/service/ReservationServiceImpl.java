@@ -90,6 +90,8 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public boolean createPdf(List<Reservation> reservationList, ServletContext servletContext, HttpServletRequest request, HttpServletResponse response) {
+        if (reservationList.size() == 0)
+            return false;
         Document document = new Document(PageSize.A4, 15, 15, 45, 30);
         Reservation res = reservationList.get(0);
         try {

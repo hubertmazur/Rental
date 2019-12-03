@@ -1,5 +1,6 @@
 package pl.mazur.rental.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,10 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@Slf4j
 public class PdfController {
 
     private ReservationService reservationService;
@@ -35,6 +39,12 @@ public class PdfController {
         if (isFlag) {
             String fullPath = request.getServletContext().getRealPath("resources/reports/" + "reservations" + ".pdf");
             fileDownload(fullPath, response, "reservations_userId_" + userId + ".pdf");
+        } else {
+            try {
+                response.sendRedirect("/reservations/user/" + userId);
+            } catch (IOException e) {
+                log.error("Can not redirect...");
+            }
         }
     }
 
