@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <title>Rezerwacje - lista</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
 </head>
 <body>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
             <h2>Rezerwacje użytkownika
-                <a th:href="@{'/createPdf/user/'+ ${userId}}" style="float: right"><img th:src="@{/images/pdf-icon.png}"
+                <a th:href="@{'/createPdf/user/'+ ${userId}}" th:style="${reservations.size() > 0 ? 'float: right;' : 'display:none'}"><img th:src="@{/images/pdf-icon.png}"
                                                                                         style="width: 40px"></a>
             </h2>
             <div style="margin-top:20px">
