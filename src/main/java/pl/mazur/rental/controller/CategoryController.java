@@ -8,6 +8,8 @@ import pl.mazur.rental.model.Category;
 import pl.mazur.rental.service.CategoryService;
 import pl.mazur.rental.validator.CategoryValidator;
 
+import javax.validation.Valid;
+
 
 @Controller
 public class CategoryController {
@@ -47,15 +49,15 @@ public class CategoryController {
 
     @GetMapping("/updateCategory/{idCategory}")
     public String updateCategory(@PathVariable Long idCategory, Model model) {
-        model.addAttribute("updateCategory", categoryService.findById(idCategory));
+        model.addAttribute("category", categoryService.findById(idCategory));
         return "updateCategory";
     }
 
-    @PutMapping("/updateCategory/{idCategory}")
-    public String updateNameCategory(@PathVariable Long idCategory, Category category, BindingResult bindingResult) {
+    @PutMapping("/updateCategory")
+    public String updateNameCategory(@Valid Category category, BindingResult bindingResult) {
         categoryValidator.validate(category, bindingResult);
         if (bindingResult.hasErrors()) {
-            return "redirect:/updateCategory/" + idCategory;
+            return "updateCategory";
         }
         categoryService.save(category);
         return "redirect:/categoryList";
