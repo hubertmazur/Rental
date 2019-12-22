@@ -1,23 +1,45 @@
 package pl.mazur.rental.service;
 
+import org.springframework.context.annotation.Lazy;
+import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.mazur.rental.model.Reservation;
+import pl.mazur.rental.model.Role;
 import pl.mazur.rental.model.User;
+import pl.mazur.rental.repostiory.RoleRepository;
 import pl.mazur.rental.repostiory.UserRepository;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
+    private RoleRepository roleRepository;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, @Lazy BCryptPasswordEncoder bCryptPasswordEncoder, RoleRepository roleRepository){
         this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.roleRepository = roleRepository;
     }
 
     @Override
     public void save(User user) {
+        try {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            Role roleOfUser = roleRepository.findRoleByName("ROLE_USER");
+            user.setRoles(new HashSet<>(Collections.singletonList(roleOfUser)));
+        }catch (DataAccessException e){
+            e.printStackTrace();
+        }
+        user.setEnabled(true);
         userRepository.save(user);
     }
 
@@ -44,5 +66,27 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Reservation> findAllReservationByUserId(Long userId) {
         return userRepository.getReservationsByUser(userId);
+    }
+
+    @Override
+    public User findByUsername(String userName) {
+        return userRepository.findUserByUsername(userName);
+    }
+
+    @Override
+    public User findUserByIdUser(Long userId) {
+        return userRepository.findUserByIdUser(userId).get();
+    }
+
+    @Override
+    public User getAuthUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        return user;
+    }
+
+    @Override
+    public void update(User user) {
+        userRepository.save(user);
     }
 }

@@ -17,4 +17,17 @@ public interface UserService {
     User findByEmail(String email);
 
     List<Reservation> findAllReservationByUserId(Long userId);
+
+    User findByUsername(String userName);
+
+    User findUserByIdUser(Long userId);
+
+    // void changePassword(UserEdit userEdit, Long id);
+
+    //  void changeMail(UserEditMail userEdit, Long id);
+
+    User getAuthUser();
+
+    void update(User user);
+
 }
