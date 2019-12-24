@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
     private RoleRepository roleRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, @Lazy BCryptPasswordEncoder bCryptPasswordEncoder, RoleRepository roleRepository){
+    public UserServiceImpl(UserRepository userRepository, @Lazy BCryptPasswordEncoder bCryptPasswordEncoder, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.roleRepository = roleRepository;
@@ -32,11 +32,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) {
+
+        if (roleRepository.findRoleByName("ROLE_USER") == null) {
+            Role userRole = new Role();
+            userRole.setName("ROLE_USER");
+            roleRepository.save(userRole);
+        }
         try {
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             Role roleOfUser = roleRepository.findRoleByName("ROLE_USER");
             user.setRoles(new HashSet<>(Collections.singletonList(roleOfUser)));
-        }catch (DataAccessException e){
+        } catch (DataAccessException e) {
             e.printStackTrace();
         }
         user.setEnabled(true);
