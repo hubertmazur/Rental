@@ -8,6 +8,8 @@
 <h1>Zmiana nazwy kategorii</h1>
 
 <form  th:action="@{'/updateCategory'}" th:object="${category}"  th:method="PUT">
+    <input type="hidden" name="userId"
+           th:field="*{idCategory}" th:value="${category.idCategory}"/>
     <p>Nazwa nowej kategori: <input type="text" th:field="*{name}" /></p>
     <p><input type="submit" value="Zmień" /> <input type="reset" value="Reset" /></p>
 </form>
