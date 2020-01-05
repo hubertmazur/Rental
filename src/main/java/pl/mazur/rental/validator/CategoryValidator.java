@@ -36,8 +36,13 @@ public class CategoryValidator implements Validator {
         if (category.getName() == null) {
             errors.rejectValue("name", "categoryName.notNull");
         }
-        if (!category.getName().matches("^[a-zA-Z]*$")) {
-            errors.rejectValue("name", "categoryName.onlyLetters");
+        char[] chars = category.getName().toCharArray();
+        for (char c : chars) {
+            if(!Character.isLetter(c)) {
+                errors.rejectValue("name", "categoryName.onlyLetters");
+            }
         }
+
+
     }
 }
