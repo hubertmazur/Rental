@@ -25,7 +25,7 @@ public class Machine {
     private String serialNumber;
     @NotNull
     @Min(1990)
-    @Max(2019)
+    @Max(2020)
     private Integer yearOfProduction;
     @Column(columnDefinition = "boolean default false")
     private Boolean isRent;
