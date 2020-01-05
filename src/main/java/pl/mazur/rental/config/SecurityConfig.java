@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login", "/login/form**", "/registration", "/logout", "/registrationConfirm*", "/").permitAll() // #4
+                .antMatchers("/login", "/login/form**", "/registration", "/logout", "/registrationConfirm*", "/","/images/excavator.jpg").permitAll() // #4
                 .antMatchers("/admin", "/admin/**").hasRole("ADMIN") // #6
                 .antMatchers("/edit").hasRole("USER") // #6
                 .anyRequest().authenticated() // 7
@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login/form") // #9
                 .loginProcessingUrl("/login")
                 .failureUrl("/login/form?error")
-                .defaultSuccessUrl("/index")
+                .defaultSuccessUrl("/")
                 .permitAll()
                 .and()
                 .exceptionHandling()
