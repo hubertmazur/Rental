@@ -10,6 +10,7 @@ import pl.mazur.rental.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 public class UserController {
@@ -89,6 +90,11 @@ public class UserController {
         userService.save(userForm);
         return "redirect:/";
 
+    }
+
+    @GetMapping("/")
+    public String mainScreen(Principal principal) {
+        return "welcome";
     }
 
 

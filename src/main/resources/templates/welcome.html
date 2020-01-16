@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Rental</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+<body style="background-color:powderblue;">
+<header>
+    <nav>
+        <table>
+            <tr>
+                <th>
+                    <button onclick="window.location.href = '/categoryList';">Wybierz srzęt</button>
+                </th>
+                <th>
+                    <button onclick="window.location.href = '/users';">Użytkownicy</button>
+                </th>
+                <th>
+                    <form th:action="@{/login/form}" th:method="get">
+                        <input type="submit" value="Zaloguj się"/>
+                    </form>
+                </th>
+                <th>
+                    <div class="container">
+                        <span sec:authorize="isAuthenticated()">Witaj  <span sec:authentication="name"> !</span> |
+                <a th:href="@{/logout}">Wyloguj się</a>
+            </span>
+                    </div>
+                </th>
+            </tr>
+        </table>
+    </nav>
+</header>
+<main>
+    <div>
+        <h1>Witaj w wypożyczalni sprzętu ! </h1>
+    </div>
+    <div>
+        <img src="images/excavator.jpg" alt="excavator" width="1162" height="600">
+    </div>
+</main>
+<footer>
+
+</footer>
+
+</body>
+</html>
