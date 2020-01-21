@@ -3,7 +3,6 @@ package pl.mazur.rental.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import pl.mazur.rental.model.Reservation;
 import pl.mazur.rental.service.ReservationService;
 import pl.mazur.rental.service.UserService;
@@ -15,7 +14,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -32,16 +30,16 @@ public class PdfController {
         this.userService = userService;
     }
 
-    @GetMapping("createPdf/user/{userId}")
-    public void generatePdf(@PathVariable long userId, HttpServletRequest request, HttpServletResponse response) {
-        List<Reservation> reservationList = userService.findAllReservationByUserId(userId);
+    @GetMapping("user/createPdf")
+    public void generatePdf(HttpServletRequest request, HttpServletResponse response) {
+        List<Reservation> reservationList = userService.findAllReservationByUserId(userService.getAuthUser().getIdUser());
         boolean isFlag = reservationService.createPdf(reservationList, servletContext, request, response);
         if (isFlag) {
             String fullPath = request.getServletContext().getRealPath("resources/reports/" + "reservations" + ".pdf");
-            fileDownload(fullPath, response, "reservations_userId_" + userId + ".pdf");
+            fileDownload(fullPath, response, "reservations_userId_" + userService.getAuthUser().getIdUser() + ".pdf");
         } else {
             try {
-                response.sendRedirect("/reservations/user/" + userId);
+                response.sendRedirect("/reservations/user/" + userService.getAuthUser().getIdUser());
             } catch (IOException e) {
                 log.error("Can not redirect...");
             }

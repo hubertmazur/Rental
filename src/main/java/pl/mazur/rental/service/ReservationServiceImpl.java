@@ -129,7 +129,7 @@ public class ReservationServiceImpl implements ReservationService {
             id.setExtraParagraphSpace(5);
             pdfPTable.addCell(id);
 
-            PdfPCell machineName = new PdfPCell(new Paragraph("Informacje o maszynie", tableHeader));
+            PdfPCell machineName = new PdfPCell(new Paragraph("Maszyna", tableHeader));
             machineName.setBorderColor(BaseColor.BLACK);
             machineName.setPaddingLeft(10);
             machineName.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -177,14 +177,18 @@ public class ReservationServiceImpl implements ReservationService {
                 IDValue.setExtraParagraphSpace(5);
                 pdfPTable.addCell(IDValue);
 
-                PdfPCell machineInfoValue = new PdfPCell(new Paragraph(String.valueOf(reservation.getMachineGroupList()), tableBody));
+                PdfPCell machineInfoValue = new PdfPCell();
                 machineInfoValue.setBorderColor(BaseColor.BLACK);
                 machineInfoValue.setPaddingLeft(10);
                 machineInfoValue.setHorizontalAlignment(Element.ALIGN_CENTER);
                 machineInfoValue.setVerticalAlignment(Element.ALIGN_CENTER);
                 machineInfoValue.setBackgroundColor(BaseColor.WHITE);
                 machineInfoValue.setExtraParagraphSpace(5);
-                pdfPTable.addCell(machineInfoValue);
+                for (int i = 0; i < reservation.getMachineGroupList().size(); i++) {
+                    machineInfoValue = new PdfPCell(new Paragraph(String.valueOf(reservation.getMachineGroupList().get(i).getName()), tableBody));
+                    pdfPTable.addCell(machineInfoValue);
+                }
+
 
                 PdfPCell quantityValue = new PdfPCell(new Paragraph(String.valueOf(reservation.getQuantity()), tableBody));
                 quantityValue.setBorderColor(BaseColor.BLACK);

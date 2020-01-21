@@ -14,12 +14,12 @@
                     <button onclick="window.location.href = '/categoryList';">Wybierz srzęt</button>
                 </th>
                 <th>
-                    <button onclick="window.location.href = '/users';">Użytkownicy</button>
-                </th>
-                <th>
                     <form th:action="@{/login/form}" th:method="get">
                         <input type="submit" value="Zaloguj się"/>
                     </form>
+                </th>
+                <th sec:authorize="isAuthenticated()">
+                    <button onclick="window.location.href = '/user/reservations';">Twoje rezerwacje</button>
                 </th>
                 <th>
                     <div class="container">
