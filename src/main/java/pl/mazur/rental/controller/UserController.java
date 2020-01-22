@@ -98,7 +98,7 @@ public class UserController {
 
     @GetMapping(value = "/accessDenied")
     public String accessDenied(){
-        return "/errors/forbidden-403";
+        return "errors/forbidden-403";
     }
 
 
