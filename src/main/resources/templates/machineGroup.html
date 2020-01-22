@@ -14,7 +14,7 @@
         <form th:action="@{'/updateGroupMachine/' + ${group.idGroup}}" >
             <td><input type="submit" value="Zmień parametry grupy" /></td>
         </form>
-        <form th:action="@{'/deleteGroup/' + ${group.idGroup}}"  th:method="delete">
+        <form th:action="@{'/delete/group/' + ${group.idGroup}}"  th:method="delete">
             <td><input type="submit" value="Usuń" /></td>
         </form>
     </tr>

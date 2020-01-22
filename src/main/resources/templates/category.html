@@ -13,7 +13,7 @@
         <form action="#" th:action="@{'/updateCategory/' + ${category.idCategory}}">
         <td><input type="submit" value="Zmień nazwę" /></td>
         </form>
-        <form action="#" th:action="@{'/deleteCategory/' + ${category.idCategory}}"  th:method="delete">
+        <form action="#" th:action="@{'/delete/category/' + ${category.idCategory}}"  th:method="delete">
             <td><input type="submit" value="Usuń" /></td>
         </form>
     </tr>

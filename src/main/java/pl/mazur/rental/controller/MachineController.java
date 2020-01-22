@@ -52,7 +52,7 @@ public class MachineController {
     }
 
 
-    @DeleteMapping("deleteMachine/{idMachine}")
+    @DeleteMapping("delete/machine/{idMachine}")
     public String deleteMachine(@PathVariable Long idMachine) {
         Long idGroup = machineService.findIdGroupByIdMachine(idMachine);
         machineService.deleteMachineById(idMachine);
