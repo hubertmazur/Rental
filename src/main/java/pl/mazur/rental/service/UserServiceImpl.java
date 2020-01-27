@@ -6,9 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import pl.mazur.rental.model.Reservation;
-import pl.mazur.rental.model.Role;
-import pl.mazur.rental.model.User;
+import pl.mazur.rental.model.*;
 import pl.mazur.rental.repostiory.RoleRepository;
 import pl.mazur.rental.repostiory.UserRepository;
 
@@ -82,6 +80,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserByIdUser(Long userId) {
         return userRepository.findUserByIdUser(userId).get();
+    }
+
+    @Override
+    public void changePassword(UserEdit userEdit, Long id) {
+        User user = userRepository.getOne(id);
+        user.setPassword(bCryptPasswordEncoder.encode(userEdit.getNewPassword()));
+        userRepository.save(user);
+    }
+
+    @Override
+    public void changeMail(UserEditMail userEdit, Long id) {
+        User user = userRepository.getOne(id);
+        user.setEmail(userEdit.getNewMail());
+        userRepository.save(user);
     }
 
     @Override

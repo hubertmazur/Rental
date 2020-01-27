@@ -6,7 +6,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import pl.mazur.rental.model.User;
+import pl.mazur.rental.model.UserEdit;
+import pl.mazur.rental.model.UserEditMail;
 import pl.mazur.rental.service.UserService;
+import pl.mazur.rental.validator.EditValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -16,11 +19,12 @@ import java.security.Principal;
 public class UserController {
 
     private UserService userService;
+    private EditValidator editValidator;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, EditValidator editValidator) {
         this.userService = userService;
+        this.editValidator = editValidator;
     }
-
 
     @GetMapping("/users")
     public String getUsers(Model model) {
@@ -97,10 +101,62 @@ public class UserController {
     }
 
     @GetMapping(value = "/accessDenied")
-    public String accessDenied(){
+    public String accessDenied() {
         return "errors/forbidden-403";
     }
 
+    @GetMapping(value = "/user/update")
+    public String updateUser() {
+        return "updateUser";
+    }
+
+    @GetMapping(value = "/user/changeMail")
+    public String changeMail(Model model) {
+        User user = userService.getAuthUser();
+        UserEditMail editModel = new UserEditMail();
+        editModel.setActualMail(user.getEmail());
+        model.addAttribute("editForm", editModel);
+        return "edit-mail-form";
+    }
+
+    @PostMapping(value = "/user/changeMail")
+    public String changeMail(@ModelAttribute("editForm") @Valid UserEditMail editModel, BindingResult bindingResult, Model model) {
+        User user = userService.getAuthUser();
+        editValidator.validatePassword(user.getPassword(), editModel.getActualPassword(), bindingResult);
+        if (bindingResult.hasErrors()) {
+            editModel.setActualMail(user.getEmail());
+            model.addAttribute("editForm", editModel);
+            model.addAttribute("errors", true);
+            return "edit-mail-form";
+        }
+        userService.changeMail(editModel, user.getIdUser());
+        user.setEmail(editModel.getNewMail());
+        return "redirect:/";
+    }
+
+    @GetMapping(value = "/user/changePassword")
+    public String changePassword(Model model) {
+        model.addAttribute("editForm", new UserEdit());
+        return "edit-password-form";
+
+    }
+
+    @PostMapping(value = "/user/changePassword")
+    public String changePassword(@ModelAttribute("editForm") @Valid UserEdit userForm, BindingResult bindingResult, Model model) {
+        User user = userService.getAuthUser();
+        editValidator.validatePassword(user.getPassword(), userForm.getActualPassword(), bindingResult);
+        editValidator.validate(userForm, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("errors", true);
+            return "edit-password-form";
+        }
+
+        Long userId = user.getIdUser();
+        userService.changePassword(userForm, userId);
+
+        return "redirect:/logout";
+    }
 
 
 }

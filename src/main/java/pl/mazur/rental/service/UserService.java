@@ -2,6 +2,8 @@ package pl.mazur.rental.service;
 
 import pl.mazur.rental.model.Reservation;
 import pl.mazur.rental.model.User;
+import pl.mazur.rental.model.UserEdit;
+import pl.mazur.rental.model.UserEditMail;
 
 import java.util.List;
 
@@ -22,9 +24,9 @@ public interface UserService {
 
     User findUserByIdUser(Long userId);
 
-    // void changePassword(UserEdit userEdit, Long id);
+     void changePassword(UserEdit userEdit, Long id);
 
-    //  void changeMail(UserEditMail userEdit, Long id);
+    void changeMail(UserEditMail userEdit, Long id);
 
     User getAuthUser();
 

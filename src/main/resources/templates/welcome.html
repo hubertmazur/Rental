@@ -21,6 +21,9 @@
                 <th sec:authorize="isAuthenticated()">
                     <button onclick="window.location.href = '/user/reservations';">Twoje rezerwacje</button>
                 </th>
+                <th sec:authorize="isAuthenticated()">
+                    <button onclick="window.location.href = '/user/update';">Ustawienia konta</button>
+                </th>
                 <th>
                     <div class="container">
                         <span sec:authorize="isAuthenticated()">Witaj  <span sec:authentication="name"> !</span> |
