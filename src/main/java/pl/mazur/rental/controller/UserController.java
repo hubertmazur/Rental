@@ -3,7 +3,6 @@ package pl.mazur.rental.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import pl.mazur.rental.model.User;
 import pl.mazur.rental.model.UserEdit;
@@ -11,11 +10,10 @@ import pl.mazur.rental.model.UserEditMail;
 import pl.mazur.rental.service.UserService;
 import pl.mazur.rental.validator.EditValidator;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.security.Principal;
 
 @Controller
+@RequestMapping(value = "/user")
 public class UserController {
 
     private UserService userService;
@@ -26,7 +24,7 @@ public class UserController {
         this.editValidator = editValidator;
     }
 
-    @GetMapping("/users")
+    @GetMapping("/all")
     public String getUsers(Model model) {
         model.addAttribute("usersList", userService.findAll());
         return "users";
@@ -56,61 +54,24 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @DeleteMapping("/delete/user/{userId}")
+    @DeleteMapping("/delete/{userId}")
     public String deleteUserById(@PathVariable Long userId) {
         userService.deleteById(userId);
         return "redirect:/users";
     }
 
-    @GetMapping("/user/reservations")
+    @GetMapping("/reservations")
     public String getUserReservation(Model model) {
         model.addAttribute("reservations", userService.findAllReservationByUserId(userService.getAuthUser().getIdUser()));
         return "reservations_user";
     }
 
-    @GetMapping("login/form")
-    public String login(Model model, String error, String logout) {
-        if (error != null)
-            model.addAttribute("loginError", true);
-
-        if (logout != null)
-            model.addAttribute("logoutMessage", true);
-        return "login";
-    }
-
-
-    @GetMapping("registration")
-    public String registration(Model model) {
-        model.addAttribute("userForm", new User());
-        return "registration";
-    }
-
-    @PostMapping("registration")
-    public String registration(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, HttpServletRequest request, Errors error) {
-        if (bindingResult.hasErrors()) {
-            return "registration";
-        }
-        userService.save(userForm);
-        return "redirect:/";
-
-    }
-
-    @GetMapping("/")
-    public String mainScreen(Principal principal) {
-        return "welcome";
-    }
-
-    @GetMapping(value = "/accessDenied")
-    public String accessDenied() {
-        return "errors/forbidden-403";
-    }
-
-    @GetMapping(value = "/user/update")
+    @GetMapping(value = "/update")
     public String updateUser() {
         return "updateUser";
     }
 
-    @GetMapping(value = "/user/changeMail")
+    @GetMapping(value = "/changeMail")
     public String changeMail(Model model) {
         User user = userService.getAuthUser();
         UserEditMail editModel = new UserEditMail();
@@ -119,7 +80,7 @@ public class UserController {
         return "edit-mail-form";
     }
 
-    @PostMapping(value = "/user/changeMail")
+    @PutMapping(value = "/changeMail")
     public String changeMail(@ModelAttribute("editForm") @Valid UserEditMail editModel, BindingResult bindingResult, Model model) {
         User user = userService.getAuthUser();
         editValidator.validatePassword(user.getPassword(), editModel.getActualPassword(), bindingResult);
@@ -134,14 +95,14 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping(value = "/user/changePassword")
+    @GetMapping(value = "/changePassword")
     public String changePassword(Model model) {
         model.addAttribute("editForm", new UserEdit());
         return "edit-password-form";
 
     }
 
-    @PostMapping(value = "/user/changePassword")
+    @PutMapping(value = "/changePassword")
     public String changePassword(@ModelAttribute("editForm") @Valid UserEdit userForm, BindingResult bindingResult, Model model) {
         User user = userService.getAuthUser();
         editValidator.validatePassword(user.getPassword(), userForm.getActualPassword(), bindingResult);
@@ -157,6 +118,5 @@ public class UserController {
 
         return "redirect:/logout";
     }
-
 
 }
